@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Il mio momento top - Power Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600&family=Merriweather:wght@700&family=Oswald:wght@500&family=Playfair+Display:ital,wght@1,700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#1b0b4d;--bg2:#07071a;--ink:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Poppins',system-ui,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 50% 120%,#5b21b6 0%,var(--bg1) 38%,var(--bg2) 80%);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;left:50%;top:60%;width:260vmax;height:260vmax;margin:-130vmax 0 0 -130vmax;background:repeating-conic-gradient(from 0deg,rgba(255,200,60,.10) 0 6deg,transparent 6deg 18deg);animation:spin 120s linear infinite;pointer-events:none;z-index:0;
+ -webkit-mask-image:radial-gradient(circle,#000 0,transparent 38%);mask-image:radial-gradient(circle,#000 0,transparent 38%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.grad-text{background:linear-gradient(90deg,#ffd200,#ff7a18,#ff2d95,#7f5bff,#00d2ff,#ffd200);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.hidden{display:none!important}
+
+/* ---------- carte ---------- */
+.card{position:absolute;top:0;padding:.8em 1em .85em;border:.22em solid transparent;color:#fff;line-height:1.28;
+ background:linear-gradient(var(--fill),var(--fill)) padding-box,var(--grad) border-box;border-radius:var(--r);
+ box-shadow:0 0 26px -2px var(--glow),inset 0 0 22px -10px var(--glow);will-change:transform;opacity:0;transition:opacity .6s}
+.card.on{opacity:1}
+.card .ic{position:absolute;top:-.62em;right:.7em;font-size:1.25em;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.card .tx{display:block;overflow-wrap:anywhere}
+.card .by{display:block;margin-top:.5em;font:600 .62em 'Poppins',sans-serif;opacity:.72;letter-spacing:.04em}
+.card.fresh{animation:pop 1s cubic-bezier(.2,1.6,.4,1),glow 1.2s ease-in-out 5}
+.card.fresh::after{content:"NUOVO";position:absolute;top:-.9em;left:.9em;font:700 .5em 'Poppins';padding:.2em .7em;border-radius:99px;background:#fff;color:#111;letter-spacing:.1em}
+@keyframes pop{0%{scale:.6}100%{scale:1}}
+@keyframes glow{50%{box-shadow:0 0 60px 6px var(--glow),inset 0 0 22px -6px var(--glow)}}
+.v0{--grad:linear-gradient(135deg,#ff512f,#f09819);--glow:#ff7a18;--fill:#2a1220;--r:1.1em;font-family:'Poppins';font-weight:600}
+.v1{--grad:linear-gradient(135deg,#00d2ff,#3a7bd5);--glow:#00b7ff;--fill:#0b1f3d;--r:.2em 2em .2em 2em;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.08em}
+.v2{--grad:linear-gradient(135deg,#11998e,#38ef7d);--glow:#2ee59d;--fill:#0a2a26;--r:1.6em;font-family:'Caveat',cursive;font-weight:700;font-size:1.38em;line-height:1.1}
+.v3{--grad:linear-gradient(135deg,#f953c6,#b91d73);--glow:#ff3fb0;--fill:#2d0f2e;--r:2.4em;font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.06em}
+.v4{--grad:linear-gradient(135deg,#f7971e,#ffd200);--glow:#ffc400;--fill:#2b2208;--r:.7em;font-family:'Merriweather',serif;font-weight:700;font-size:.92em;border-style:double;border-width:.3em}
+.v5{--grad:linear-gradient(135deg,#7f00ff,#e100ff);--glow:#b24bff;--fill:#1d0d38;--r:0 1.6em 0 1.6em;font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.03em;font-size:1.12em}
+.v3 .by,.v2 .by{font-family:'Fredoka'}
+
+/* ---------- feed ---------- */
+.feed{position:relative;overflow:hidden;font-size:var(--fs,20px);
+ -webkit-mask-image:linear-gradient(transparent 0,#000 9%,#000 88%,transparent 100%);mask-image:linear-gradient(transparent 0,#000 9%,#000 88%,transparent 100%)}
+.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:2em;opacity:.8;font-size:1.1em}
+.empty b{font-size:1.4em}
+
+/* ---------- schermo docente ---------- */
+body.display{height:100vh;overflow:hidden}
+body.display main{position:relative;z-index:2;height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:0}
+.top{display:flex;align-items:center;gap:2vw;padding:2.2vh 3vw 0}
+.top .t{flex:1}
+.top h1{font-size:clamp(22px,3.3vw,64px);line-height:1.1;font-weight:800;letter-spacing:-.01em}
+.top p{margin-top:.7vh;font-size:clamp(14px,1.45vw,28px);opacity:.85}
+.qr{background:#fff;border-radius:1.2vw;padding:.7vw;text-align:center;color:#111;box-shadow:0 0 40px rgba(255,190,60,.5);flex:none}
+.qr svg,.qr img{display:block;width:clamp(96px,11vw,210px);height:auto}
+.qr small{display:block;font:700 clamp(10px,.9vw,16px) 'Poppins';margin-top:.4vw}
+body.display .feed{margin-top:1vh}
+.bar{display:flex;gap:1vw;align-items:center;justify-content:center;padding:1vh 2vw 1.6vh;font-size:14px;transition:opacity .5s}
+.bar.dim{opacity:0}
+.bar button,.bar .pill{font:600 14px 'Poppins';color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:.5em 1.1em;cursor:pointer;backdrop-filter:blur(6px)}
+.bar button:hover{background:rgba(255,255,255,.28)}
+.bar input[type=range]{width:90px;accent-color:#ffb300}
+.dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:#888;margin-right:.5em}
+.dot.ok{background:#3ddc84;box-shadow:0 0 8px #3ddc84}.dot.wait{background:#ffb300}.dot.off{background:#ff5252}
+body.display{cursor:default}
+
+/* ---------- smartphone ---------- */
+body.user main{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 18px 40px}
+body.user h1{font-size:clamp(26px,7vw,40px);line-height:1.1;font-weight:800;margin-top:6px}
+body.user .q{margin:12px 0 18px;font-size:17px;opacity:.9;line-height:1.4}
+.box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:16px;backdrop-filter:blur(8px)}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 6px;opacity:.9}
+textarea,input[type=text]{width:100%;font:500 17px 'Poppins';color:#fff;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.25);border-radius:14px;padding:12px 14px;outline:none}
+textarea{min-height:130px;resize:vertical}
+textarea:focus,input[type=text]:focus{border-color:#ffb300;box-shadow:0 0 0 3px rgba(255,179,0,.3)}
+.cnt{text-align:right;font-size:12px;opacity:.7;margin:4px 2px 10px}
+.steps{margin:0 0 12px 22px;font-size:16px;line-height:1.45}.steps li{margin-bottom:6px}
+.hint{font-size:13px;opacity:.75;margin:0 0 14px;line-height:1.45}
+.go{width:100%;margin-top:14px;border:0;border-radius:16px;padding:16px;font:800 18px 'Poppins';color:#1b0b4d;cursor:pointer;background:linear-gradient(90deg,#ffd200,#ff7a18,#ff2d95);background-size:200% 100%;animation:flow 4s linear infinite;box-shadow:0 8px 26px -6px #ff7a18}
+.go:disabled{filter:grayscale(.7) brightness(.8);animation:none;cursor:default}
+.msg{margin-top:12px;font-weight:600;min-height:1.4em}
+.msg.err{color:#ff8a8a}
+.sec{margin-top:26px}
+.sec h2{font-size:18px;margin-bottom:10px}
+.ghost{width:100%;border:2px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:14px;padding:12px;font:700 16px 'Poppins';cursor:pointer}
+body.user .feed{height:62vh;min-height:380px;margin-top:12px;border-radius:18px;background:rgba(0,0,0,.22)}
+.foot{margin-top:18px;font-size:12px;opacity:.55;text-align:center}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<!-- ===== vista schermo docente ===== -->
+<main id="vDisplay" class="hidden">
+  <div class="top">
+    <div class="t">
+      <h1 class="grad-text">Quando ti sei sentito al massimo del tuo potenziale?</h1>
+      <p><b>1</b> Inquadra il QR code &nbsp;·&nbsp; <b>2</b> Scrivi la tua frase &nbsp;·&nbsp; <b>3</b> Premi “Invia”: la vedrai comparire qui</p>
+    </div>
+    <div class="qr" id="qrBox"><div id="qrSvg"></div><small id="qrUrl"></small></div>
+  </div>
+  <div class="feed" id="feedD"></div>
+  <div class="bar" id="bar">
+    <span class="pill"><span class="dot wait" id="dotD"></span><span id="cntD">0</span> momenti top</span>
+    <button id="bSound">🔊 Musica</button>
+    <input type="range" id="vol" min="0" max="100" value="55" title="Volume">
+    <button id="bPause">⏸ Pausa</button>
+    <button id="bFull">⛶ Schermo intero</button>
+    <button id="bNew" title="Nuova sessione: svuota lo schermo e crea un nuovo QR">↻ Nuova sessione</button>
+  </div>
+</main>
+
+<!-- ===== vista partecipante (smartphone) ===== -->
+<main id="vUser" class="hidden">
+  <p class="grad-text" style="font-weight:800;letter-spacing:.14em;font-size:13px">POWER UP!</p>
+  <h1 class="grad-text">Il mio momento top</h1>
+  <p class="q">Quando ti sei sentito davvero <b>al massimo del tuo potenziale</b>?</p>
+  <ol class="steps">
+    <li><b>Scrivi una frase</b> sul momento in cui hai sentito di dare il meglio di te (nella vita o nel lavoro).</li>
+    <li><b>Premi “Invia”</b>: dopo pochi secondi la tua frase compare sul grande schermo e scorre insieme a quelle del gruppo.</li>
+    <li><b>Guarda lo schermo</b> e leggi i momenti top dei colleghi.</li>
+  </ol>
+  <p class="hint">Esempi: “Mi sono sentito super potente quando sono riuscito a portare a termine il mio primo progetto complesso come project manager”; “Ho capito che ero al massimo del mio potenziale quando ho superato brillantemente l’esame di meccanica razionale”.</p>
+  <div class="box">
+    <label for="txt">Il tuo momento top</label>
+    <textarea id="txt" maxlength="220" placeholder="Es. Mi sono sentito super potente quando sono riuscito a portare a termine il mio primo progetto complesso come project manager"></textarea>
+    <div class="cnt"><span id="n">0</span>/220</div>
+    <label for="nm">Nome o iniziali (facoltativo)</label>
+    <input type="text" id="nm" maxlength="24" placeholder="Es. Marco" autocomplete="given-name">
+    <button class="go" id="send">⚡ Invia il mio momento top</button>
+    <div class="msg" id="msg" role="status"></div>
+  </div>
+  <div class="sec">
+    <button class="ghost" id="bShow">👀 Guarda i momenti top del gruppo</button>
+    <div class="feed hidden" id="feedU"></div>
+    <p class="hint" id="holdHint" style="margin-top:8px" hidden>Tieni premuto il dito su un riquadro per fermare lo scorrimento e leggere con calma.</p>
+  </div>
+  <p class="foot">Non serve registrarsi. Scrivi solo ciò che ti va di condividere con il gruppo.</p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" onerror="window.__noqr=1"></script>
+<script>
+(function(){
+'use strict';
+const Q=new URLSearchParams(location.search);
+const DISPLAY=Q.has('schermo');
+const DEMO=Q.has('demo');
+const $=id=>document.getElementById(id);
+const rnd=n=>Array.from({length:n},()=>'abcdefghjkmnpqrstuvwxyz23456789'[Math.random()*31|0]).join('');
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+
+/* ---- stanza (sessione) ---- */
+let room=(Q.get('room')||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20);
+if(!room&&DISPLAY){room=ls.get('pu_room')||rnd(8)}
+if(!room)room='prova';
+if(DISPLAY){ls.set('pu_room',room);const u=new URL(location.href);u.searchParams.set('room',room);history.replaceState(null,'',u)}
+const TOPIC='pu-mtop-'+room;
+document.body.classList.add(DISPLAY?'display':'user');
+$(DISPLAY?'vDisplay':'vUser').classList.remove('hidden');
+
+/* ---- archivio messaggi ---- */
+const store=new Map();const KEY='pu_msgs_'+room;
+const listeners=[];
+function persist(){ls.set(KEY,JSON.stringify([...store.values()].slice(-300)))}
+function addMsg(m,isNew){
+  if(!m||!m.id||store.has(m.id))return false;
+  m.t=String(m.t||'').slice(0,220).trim();m.n=String(m.n||'').slice(0,24).trim();
+  if(!m.t)return false;
+  store.set(m.id,m);persist();listeners.forEach(f=>f(m,isNew));return true;
+}
+try{(JSON.parse(ls.get(KEY)||'[]')).forEach(m=>{if(m&&m.id&&m.t)store.set(m.id,m)})}catch(e){}
+
+/* ---- trasporto: foglio Google (Apps Script) + canale locale per i test ---- */
+const API_DEFAULT='https://script.google.com/macros/s/AKfycbwEsn5w2yLPs4rLJfJ12413VrKOUibZRy7V7LA1ah5N66gGpVuWn5r29mMCHCdRboCh/exec';           // <- qui l'indirizzo "/exec" dello script Google (vedi istruzioni)
+const API=(Q.get('api')||API_DEFAULT).trim();
+let bc=null;try{bc=new BroadcastChannel('pu-'+room);bc.onmessage=e=>addMsg(e.data,true)}catch(e){}
+async function publish(m){
+  try{bc&&bc.postMessage(m)}catch(e){}
+  if(DEMO)return true;
+  if(!API)return false;
+  try{const r=await fetch(API,{method:'POST',body:JSON.stringify({room:room,id:m.id,t:m.t,n:m.n})});const j=await r.json();return !!j.ok}catch(e){return false}
+}
+let timer=null,firstLoad=true,setStatus=()=>{};
+async function pull(){
+  try{
+    const r=await fetch(API+(API.indexOf('?')>-1?'&':'?')+'room='+encodeURIComponent(room)+'&_='+Date.now());
+    const j=await r.json();if(!j.ok)throw new Error('ko');
+    setStatus('ok');const fl=firstLoad;firstLoad=false;
+    j.rows.forEach(x=>addMsg({id:x.id,t:x.t,n:x.n,ts:x.ts},!fl));
+  }catch(e){setStatus('off')}
+}
+function subscribe(){
+  if(DEMO||timer)return;
+  if(!API){setStatus('off');return}
+  setStatus('wait');pull();timer=setInterval(pull,6000);
+}
+
+/* ---- feed a scorrimento ---- */
+const ICONS=['🔥','🚀','💪','✨','⭐','⚡'];
+function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)}
+class Feed{
+  constructor(root,speed){
+    this.root=root;this.speed=speed;this.cards=[];this.queue=[];this.cursor=0;this.paused=false;this.hidden=new Set();
+    this.lanes=0;this.measure(true);this.last=performance.now();
+    addEventListener('resize',()=>this.measure(false));
+    root.addEventListener('pointerdown',()=>{this.paused=true});
+    ['pointerup','pointercancel','pointerleave'].forEach(ev=>root.addEventListener(ev,()=>{if(!this.userPause)this.paused=false}));
+    requestAnimationFrame(t=>this.tick(t));
+  }
+  measure(force){
+    const w=this.root.clientWidth;this.h=this.root.clientHeight;if(!w)return;
+    const lanes=w>1100?3:w>720?2:1;
+    this.laneW=w/lanes;this.fs=Math.max(17,Math.min(30,this.laneW/(lanes>1?19:15)));
+    this.root.style.setProperty('--fs',this.fs+'px');
+    if(force||lanes!==this.lanes){this.lanes=lanes;this.cards.forEach(c=>c.el.remove());this.cards=[]}
+    else this.cards.forEach(c=>this.place(c));
+  }
+  place(c){const pad=this.laneW*.04;c.el.style.left=(c.lane*this.laneW+pad)+'px';c.el.style.width=(this.laneW-2*pad)*(c.narrow)+'px';c.el.style.marginLeft=((this.laneW-2*pad)*(1-c.narrow)*c.align)+'px'}
+  push(m,isNew){if(isNew)this.queue.push(m)}
+  setAll(){this.all=[...store.values()]}
+  onScreen(id){return this.cards.some(c=>c.id===id)}
+  next(){
+    while(this.queue.length){const m=this.queue.shift();if(!this.hidden.has(m.id)&&!this.onScreen(m.id))return m}
+    const all=[...store.values()];if(!all.length)return null;
+    for(let i=0;i<all.length;i++){
+      const m=all[(this.cursor+i)%all.length];
+      if(!this.hidden.has(m.id)&&!this.onScreen(m.id)&&!this.queue.includes(m)){this.cursor=(this.cursor+i+1)%all.length;return m}
+    }
+    return null;
+  }
+  add(m,lane,isFresh){
+    const v=hash(m.id)%6,el=document.createElement('div');
+    el.className='card v'+v+(isFresh?' fresh':'');
+    el.innerHTML='<span class="ic"></span><span class="tx"></span><span class="by"></span>';
+    el.querySelector('.ic').textContent=ICONS[v];
+    el.querySelector('.tx').textContent=m.t;
+    el.querySelector('.by').textContent=m.n?'— '+m.n:'';
+    if(!m.n)el.querySelector('.by').remove();
+    el.dataset.id=m.id;
+    const h2=hash(m.id+'x');
+    const c={el,id:m.id,lane,y:0,h:0,narrow:[1,.94,.88][h2%3],align:[0,.5,1][(h2>>3)%3]};
+    el.style.transform='translate3d(0,'+this.h+'px,0)';
+    this.root.appendChild(el);this.place(c);
+    c.h=el.offsetHeight;c.y=this.h;this.cards.push(c);
+    requestAnimationFrame(()=>el.classList.add('on'));
+    if(isFresh)setTimeout(()=>el.classList.remove('fresh'),7000);
+  }
+  spawn(){
+    const GAP=this.fs*1.1;
+    for(let g=0;g<this.lanes;g++){
+      let best=-1,bb=Infinity;
+      for(let l=0;l<this.lanes;l++){
+        let b=-1;for(const c of this.cards)if(c.lane===l)b=Math.max(b,c.y+c.h);
+        if(b<this.h-GAP&&b<bb){best=l;bb=b}
+      }
+      if(best<0)return;
+      const fromQueue=this.queue.length>0,m=this.next();if(!m)return;
+      this.add(m,best,fromQueue);
+    }
+  }
+  tick(t){
+    const dt=Math.min(.1,(t-this.last)/1000);this.last=t;
+    if(!this.paused&&this.h){
+      for(const c of this.cards)c.y-=this.speed*dt*(this.fs/20>1.3?1.3:Math.max(.9,this.fs/20));
+      this.cards=this.cards.filter(c=>{if(c.y+c.h<-40){c.el.remove();return false}return true});
+      for(const c of this.cards)c.el.style.transform='translate3d(0,'+c.y.toFixed(1)+'px,0)';
+      this.spawn();
+    }
+    let empty=this.root.querySelector('.empty');
+    if(!store.size&&!empty){empty=document.createElement('div');empty.className='empty';empty.innerHTML=this.emptyHtml||'';this.root.appendChild(empty)}
+    if(store.size&&empty)empty.remove();
+    requestAnimationFrame(t=>this.tick(t));
+  }
+}
+
+/* ---- effetti: particelle e coriandoli ---- */
+const cv=$('fx'),cx=cv.getContext('2d');let W,H,parts=[],conf=[],energy=0;
+function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio}rs();addEventListener('resize',rs);
+const COL=['#ffd200','#ff7a18','#ff2d95','#7f5bff','#00d2ff','#38ef7d'];
+for(let i=0;i<(DISPLAY?90:40);i++)parts.push({x:Math.random(),y:Math.random(),r:1+Math.random()*3,v:.01+Math.random()*.03,c:COL[i%6],a:.2+Math.random()*.6,p:Math.random()*6});
+function burst(x,y,n){for(let i=0;i<(n||70);i++){const a=Math.random()*Math.PI*2,s=(4+Math.random()*9)*devicePixelRatio;conf.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*devicePixelRatio,c:COL[i%6],w:(5+Math.random()*7)*devicePixelRatio,r:Math.random()*6,vr:(Math.random()-.5)*.4,l:1})}}
+(function loop(){
+  cx.clearRect(0,0,W,H);cx.globalCompositeOperation='lighter';
+  const pulse=1+energy*.9;
+  for(const p of parts){p.y-=p.v*.01*(1+energy*3);p.p+=.02;if(p.y<-.02){p.y=1.02;p.x=Math.random()}
+    cx.globalAlpha=p.a*(.6+.4*Math.sin(p.p));cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x*W,p.y*H,p.r*devicePixelRatio*pulse,0,6.3);cx.fill()}
+  cx.globalAlpha=1;cx.globalCompositeOperation='source-over';
+  for(const c of conf){c.x+=c.vx;c.y+=c.vy;c.vy+=.35*devicePixelRatio;c.vx*=.985;c.r+=c.vr;c.l-=.008;
+    cx.save();cx.globalAlpha=Math.max(0,c.l);cx.translate(c.x,c.y);cx.rotate(c.r);cx.fillStyle=c.c;cx.fillRect(-c.w/2,-c.w/4,c.w,c.w/2);cx.restore()}
+  conf=conf.filter(c=>c.l>0&&c.y<H+50);
+  energy*=.9;requestAnimationFrame(loop);
+})();
+
+/* ---- jingle sintetizzato (Web Audio): ritmo energico 124 bpm, I-V-vi-IV ---- */
+const Music=(function(){
+  let ac,master,comp,timer,step=0,next=0,on=false,vol=.55,noiseBuf;
+  const BPM=124,S=60/BPM/4;
+  const mtof=n=>440*Math.pow(2,(n-69)/12);
+  const CH=[[60,64,67],[59,62,67],[57,60,64],[57,60,65]],BASS=[36,43,45,41];
+  const PAT=[0,1,2,1,0,1,2,1,0,1,2,1,2,1,0,1];
+  function init(){
+    if(ac)return;
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    comp=ac.createDynamicsCompressor();master=ac.createGain();master.gain.value=vol*.8;master.connect(comp);comp.connect(ac.destination);
+    noiseBuf=ac.createBuffer(1,ac.sampleRate,ac.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  }
+  function osc(type,f,t,dur,g,lp,detune){
+    const o=ac.createOscillator(),e=ac.createGain(),fl=ac.createBiquadFilter();
+    o.type=type;o.frequency.value=f;if(detune)o.detune.value=detune;
+    fl.type='lowpass';fl.frequency.value=lp||2000;
+    e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(g,t+.01);e.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(fl);fl.connect(e);e.connect(master);o.start(t);o.stop(t+dur+.05);
+  }
+  function kick(t){
+    const o=ac.createOscillator(),e=ac.createGain();o.frequency.setValueAtTime(160,t);o.frequency.exponentialRampToValueAtTime(42,t+.13);
+    e.gain.setValueAtTime(1,t);e.gain.exponentialRampToValueAtTime(.001,t+.32);o.connect(e);e.connect(master);o.start(t);o.stop(t+.35);
+  }
+  function noise(t,dur,type,freq,g){
+    const s=ac.createBufferSource(),f=ac.createBiquadFilter(),e=ac.createGain();s.buffer=noiseBuf;f.type=type;f.frequency.value=freq;
+    e.gain.setValueAtTime(g,t);e.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f);f.connect(e);e.connect(master);s.start(t);s.stop(t+dur+.02);
+  }
+  function play(i,t){
+    const bar=Math.floor(i/16)%4,s=i%16,ch=CH[bar];
+    if(s%4===0){kick(t);energy=1;}
+    if(s===4||s===12){noise(t,.16,'bandpass',1800,.55);osc('triangle',190,t,.12,.25,1500)}
+    if(s%4===2)noise(t,.05,'highpass',7500,.16);
+    if(s%2===0)osc('sawtooth',mtof(BASS[bar]),t,S*1.8,.2,420);
+    osc('triangle',mtof(ch[PAT[s]]+12),t,S*1.6,.085,3200);
+    if(s===0){ch.forEach((n,k)=>{osc('sawtooth',mtof(n),t,S*15,.032,1100,k*5-5);osc('sawtooth',mtof(n),t,S*15,.032,1100,k*5+5)})}
+    if(s===0&&bar===0){noise(t,.7,'highpass',4000,.12)}
+    if(s===8&&bar%2===1){osc('square',mtof(ch[2]+24),t,S*3,.04,2600)}
+  }
+  function sched(){while(next<ac.currentTime+.15){play(step,next);next+=S;step++}}
+  return{
+    get on(){return on},
+    start(){init();ac.resume();if(on)return;on=true;step=0;next=ac.currentTime+.08;timer=setInterval(sched,25)},
+    stop(){on=false;clearInterval(timer)},
+    volume(v){vol=v;if(master)master.gain.value=v*.8},
+    chime(){if(!ac||!on)return;const t=ac.currentTime+.02;osc('sine',mtof(84),t,.5,.22,6000);osc('sine',mtof(91),t+.09,.7,.22,6000);osc('triangle',mtof(96),t+.18,.9,.12,6000)}
+  };
+})();
+
+/* ================= SCHERMO DOCENTE ================= */
+if(DISPLAY){
+  const feed=new Feed($('feedD'),24);
+  feed.emptyHtml='<div><b class="grad-text">In attesa dei vostri momenti top…</b><br><br>Es. “Ho capito di essere al massimo del mio potenziale quando ho superato brillantemente l’esame di meccanica razionale”</div>';
+  setStatus=s=>{$('dotD').className='dot '+s};
+  const upd=()=>{$('cntD').textContent=store.size};upd();
+  listeners.push((m,isNew)=>{upd();if(isNew){feed.push(m,true);Music.chime();burst(W/2,H*.8,60)}});
+  // all'avvio i messaggi già salvati ruotano normalmente
+  const pu=location.origin+location.pathname+'?room='+room;
+  $('qrUrl').textContent=pu.replace(/^https?:\/\//,'').replace(/\?room=.*/,'');
+  try{const q=qrcode(0,'M');q.addData(pu);q.make();$('qrSvg').innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(e){$('qrSvg').innerHTML='<div style="width:150px;font:700 12px Poppins;padding:8px;word-break:break-all">'+pu+'</div>'}
+  $('qrSvg').querySelector('svg')&&($('qrSvg').querySelector('svg').style.cssText='width:100%;height:auto;display:block');
+  if(DEMO)seedDemo();
+  subscribe();
+  if(DEMO)setStatus('ok');
+  // comandi
+  $('bSound').onclick=()=>{if(Music.on){Music.stop();$('bSound').textContent='🔇 Musica'}else{Music.start();Music.volume($('vol').value/100);$('bSound').textContent='🔊 Musica'}};
+  $('vol').oninput=e=>Music.volume(e.target.value/100);
+  $('bSound').textContent='🔇 Musica (clic per avviare)';
+  $('bPause').onclick=()=>{feed.userPause=!feed.userPause;feed.paused=feed.userPause;$('bPause').textContent=feed.paused?'▶ Riprendi':'⏸ Pausa'};
+  $('bFull').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()};
+  $('bNew').onclick=()=>{if(confirm('Iniziare una nuova sessione? Lo schermo si svuota e il QR code cambia.')){ls.del(KEY);ls.del('pu_room');const u=new URL(location.href);u.searchParams.delete('room');location.href=u}};
+  addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();$('bPause').click()}if(e.key==='f')$('bFull').click();if(e.key==='m')$('bSound').click()});
+  $('feedD').addEventListener('dblclick',e=>{const c=e.target.closest('.card');if(c){feed.hidden.add(c.dataset.id);const k=feed.cards.find(x=>x.id===c.dataset.id);if(k){k.el.remove();feed.cards=feed.cards.filter(x=>x!==k)}}});
+  let idle;const bar=$('bar');const wake=()=>{bar.classList.remove('dim');clearTimeout(idle);idle=setTimeout(()=>bar.classList.add('dim'),4000)};
+  ['mousemove','pointerdown','keydown'].forEach(ev=>addEventListener(ev,wake));wake();
+}
+
+/* ================= PARTECIPANTE ================= */
+if(!DISPLAY){
+  const txt=$('txt'),n=$('n'),msg=$('msg'),btn=$('send');let feed=null;
+  txt.addEventListener('input',()=>{n.textContent=txt.value.length});
+  $('nm').value=ls.get('pu_name')||'';
+  function show(){
+    if(feed)return;$('feedU').classList.remove('hidden');$('bShow').classList.add('hidden');$('holdHint').hidden=false;
+    feed=new Feed($('feedU'),22);feed.emptyHtml='<div><b>Qui compariranno i momenti top del gruppo</b></div>';
+    listeners.push((m,isNew)=>{if(isNew)feed.push(m,true)});
+    if(DEMO)seedDemo();subscribe();
+  }
+  $('bShow').onclick=show;
+  btn.onclick=async()=>{
+    const t=txt.value.trim();
+    if(t.length<8){msg.className='msg err';msg.textContent='Scrivi almeno una frase: racconta il tuo momento top.';txt.focus();return}
+    const nm=$('nm').value.trim();ls.set('pu_name',nm);
+    btn.disabled=true;msg.className='msg';msg.textContent='Invio in corso…';
+    const m={id:Date.now().toString(36)+rnd(4),t:t,n:nm,ts:Date.now()};
+    const ok=await publish(m);
+    if(!ok){msg.className='msg err';msg.textContent='Non riesco a collegarmi alla rete. Controlla la connessione e riprova.';btn.disabled=false;return}
+    store.set(m.id,m);persist();if(feed)feed.push(m,true);
+    txt.value='';n.textContent='0';
+    msg.textContent='🎉 Fatto! La tua frase comparirà sul grande schermo tra pochi secondi.';
+    burst(W/2,H*.55,110);
+    setTimeout(()=>{btn.disabled=false;btn.textContent='⚡ Invia un altro momento'},6000);
+  };
+}
+
+/* ---- esempi per provare l'app (?demo) ---- */
+function seedDemo(){
+  const ex=[
+   ['Mi sono sentito super potente quando sono riuscito a portare a termine il mio primo progetto complesso come project manager','Marco'],
+   ['Ho capito che ero al massimo del mio potenziale quando ho superato brillantemente l’esame di meccanica razionale','Giulia'],
+   ['Quando ho guidato la squadra durante un’emergenza e abbiamo ripristinato il servizio in due ore','Luca'],
+   ['Il giorno in cui ho imparato un software nuovo da solo e l’ho spiegato ai colleghi','Sara'],
+   ['Dopo aver portato a termine la mia prima presentazione davanti a cento persone','Elena'],
+   ['Quando ho detto di no a una richiesta sbagliata e ho proposto una soluzione migliore','Paolo'],
+   ['Ho corso la mia prima mezza maratona: pensavo di non farcela','Anna'],
+   ['Quando un cliente difficile mi ha ringraziato per come avevo risolto il problema','Davide']];
+  ex.forEach((e,i)=>addMsg({id:'demo'+i,t:e[0],n:e[1],ts:i},false));
+}
+})();
+</script>
+</body>
+</html>
